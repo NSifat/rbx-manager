@@ -8,9 +8,9 @@ export const config: BotConfig = {
     ROBLOX_PASSWORD: process.env.ROBLOX_PASSWORD,
     ROBLOX_COOKIE: process.env.ROBLOX_COOKIE,
     ROBLOX_API_KEY: process.env.ROBLOX_API_KEY,
-    groupId: 5242495,
+    groupId: 8555157,
     permissions: {
-        all: ["759959415708450837"],
+        all: ["997326665455767562"],
         group: {
             shout: [""],
             ranking: [""],
@@ -33,15 +33,15 @@ export const config: BotConfig = {
     logging: {
         audit: {
             enabled: true,
-            loggingChannel: "989034080853180446"
+            loggingChannel: "997326786046197790"
         },
         shout: {
             enabled: true,
-            loggingChannel: "989034080853180446"
+            loggingChannel: "997326792761278594"
         },
         command: {
             enabled: true,
-            loggingChannel: "989034080853180446"
+            loggingChannel: "997326774696431657"
         }
     },
     embedColors: {
@@ -49,9 +49,9 @@ export const config: BotConfig = {
         success: "GREEN",
         error: "RED",
     },
-    universeId: 3507532981,
+    universeId: 3741266388,
     datastoreName: "moderations",
     verificationChecks: true,
-    lockedRanks: ["Administrators/Moderators", "Developer"],
-    whitelistedServers: ["658241441234944021"]
+    lockedRanks: [""],
+    whitelistedServers: ["997314740210638869"]
 }
