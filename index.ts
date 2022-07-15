@@ -39,7 +39,6 @@ async function readCommands(path?: string) {
         if(file.indexOf(".") === -1) {
             await readCommands(`${path}/${file}`);
         } else {
-            file = file.replace(".ts", ".js");
             let commandFile = require(`${path}/${file}`) as CommandFile;
             let command = {
                 file: commandFile,
