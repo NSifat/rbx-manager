@@ -30,7 +30,13 @@ Rename ``ENV_FORMAT.txt`` to ``.env`` and then open it in your favorite text edi
 Configure the env file. All of these values are very sensitive information, so don't leak them!
 
 # Step 5.1
-The value, ``DISCORD_TOKEN``, is your bot's Discord token. To get it, go to the https://discord.com/developers and clicking "New Application" and name it whatever you want. After that, click on the Bot tab and click "Add Bot" and accept that a bot's creation is irreversible. Once you created a bot, click on "Reset Token" and then click "Copy". While you're still here, go to the the "Public Bot" toggle and make sure it's disabled. Back in the .env file, copy the token value that you copied after the equal sign
+The value, ``DISCORD_TOKEN``, is your bot's Discord token. To get it, go to the https://discord.com/developers and clicking "New Application" and name it whatever you want.
+
+Go to the ``Installation`` tab and remove the install link (set it to None)
+
+Go to the ``Bot``, click on "Reset Token" and then click "Copy" and then back in the .env file, paste the token value that you copied after the equal sign
+
+While you're still here, go to the the "Public Bot" toggle and make sure it's disabled.
 
 # Step 5.2
 The value, ``ROBLOX_COOKIE``, is your bot's Roblox cookie. To get it, log in to your bot's Roblox account in an incognito window, open inspect element, click on Storage, then on Cookies, expand it, and click roblox.com. You will see multiple cookies that the site uses, what you need is the cookie labelled ``.ROBLOSECURITY``
@@ -130,7 +136,7 @@ The value, ``lockedCommands``, locks commands, meaning that no one can use them.
 The value, ``verificationProvider``, defines what verification provider the bot will use. Valid values are ``bloxlink``, ``rover``, and ``rowifi``
 
 # Step 7
-Now that you've configured your bot, go back to your bot's Discord develop page and copy it's client ID. After doing so, paste the following link into your browser: ``https://discord.com/oauth2/authorize?client_id=CLIENT_ID_HERE&permissions=8&scope=applications.commands%20bot`` and replace CLIENT_ID_HERE with your bot's client ID
+Now that you've configured your bot, go back to your bot's Discord develop page and copy it's client ID. After doing so, paste the following link into your browser: ``https://discord.com/oauth2/authorize?client_id=CLIENT_ID_HERE&permissions=8&integration_type=0&scope=applications.commands+bot`` and replace CLIENT_ID_HERE with your bot's client ID
 
 # Step 8
 Once you've added the bot into your server, go back to your bot file and open a command line terminal. In here, type ``npm install`` and then once that completes, run ``npm run winStart`` if on Windows or ``npm run linuxStart`` if on Linux. If you've done everything successfully, the bot should boot up with no errors
