@@ -3,7 +3,6 @@ import roblox from 'noblox.js';
 
 import BetterConsole from './BetterConsole';
 
-import BotConfig from '../interfaces/BotConfig';
 import RequestOptions from '../interfaces/RequestOptions';
 import EmbedMakerOptions from '../interfaces/EmbedMakerOptions';
 import CommandLog from '../interfaces/CommandLog';
@@ -19,12 +18,12 @@ export default class BotClient extends Discord.Client {
     public robloxInfo: roblox.LoggedInUserData;
     public commandCooldowns: CooldownEntry[] = [];
     public groupLogs: GroupLog[] = [];
-    public verificationCache: {discordID: string, robloxID: number, timeAdded: number}[] = [];
     public jobIdsRequested: {username: string, universeID: number, msgID: string, channelID: string, timeRequested: number}[] = [];
 
-    constructor(config: BotConfig) {
+    constructor() {
         super({intents: [Discord.IntentsBitField.Flags.Guilds, Discord.IntentsBitField.Flags.GuildMessages, Discord.IntentsBitField.Flags.GuildMessageReactions, Discord.IntentsBitField.Flags.MessageContent]});
         this.originalLockedCommands = config.lockedCommands;
+        this.login(config.DISCORD_TOKEN);
     }
 
     public static async request(requestOptions: RequestOptions) : Promise<Response> {

@@ -28,7 +28,7 @@ import checkMemberCount from './utils/events/checkMemberCount';
 import checkJobIDs from './utils/events/checkJobIDs';
 import checkUpdates from './utils/events/checkUpdates';
 
-const client = new BotClient(config);
+const client = new BotClient();
 
 export const commands: CommandInstance[] = [];
 export const registeredCommands: CommandInstance[] = [];
@@ -288,5 +288,3 @@ let oldMethod = console.error;
 console.error = function(msg: string) {
     if(!msg.toString().includes("ExperimentalWarning")) oldMethod(msg);
 }
-
-client.login(config.DISCORD_TOKEN);
