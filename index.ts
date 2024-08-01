@@ -153,69 +153,67 @@ client.once('ready', async() => {
 client.on('interactionCreate', async(interaction: Discord.Interaction) => {
     if(interaction.type !== Discord.InteractionType.ApplicationCommand) return;
     let command = interaction.commandName.toLowerCase();
-    for(let i = 0; i < commands.length; i++) {
-        if(commands[i].name === command) {
-            try {
-                await interaction.deferReply({ephemeral: commands[i].commandData.isEphemeral});
-            } catch(e) {
-                console.error(e);
-                return; // This error only happens with the plugin command. Idk why
-            }
-            let args = CommandHelpers.loadArguments(interaction);
-            if(args["username"]) {
-                let usernames = args["username"].replaceAll(" ", "").split(",") as string[];
-                if(usernames.length > config.maximumNumberOfUsers) {
-                    let embed = client.embedMaker({title: "Maximum Number of Users Exceeded", description: "You've inputted more users than the currently allowed maximum, please lower the amount of users in your command and try again", type: "error", author: interaction.user});
-                    await interaction.editReply({embeds: [embed]});
-                    return;
-                }
-            }
-            if(!CommandHelpers.checkPermissions(commands[i].file, interaction.member as Discord.GuildMember)) {
-                let embed = client.embedMaker({title: "No Permission", description: "You don't have permission to run this command", type: "error", author: interaction.user});
-                await interaction.editReply({embeds: [embed]});
-                return;
-            }
-            if(commands[i].file.commandData.hasCooldown) {
-                if(client.isUserOnCooldown(commands[i].file.slashData.name, interaction.user.id)) {
-                    let embed = client.embedMaker({title: "Cooldown", description: "You're currently on cooldown for this command, take a chill pill", type: "error", author: interaction.user});
-                    await interaction.editReply({embeds: [embed]});
-                    return;
-                }
-            }
-            if(commands[i].file.commandData.preformGeneralVerificationChecks) {
-                let groupID = GroupHandler.getIDFromName(args["group"]);
-                let robloxID = await VerificationHelpers.getRobloxUser(interaction.guild.id, interaction.user.id);
-                let verificationStatus: VerificationResult;
-                if(robloxID !== 0) {
-                    verificationStatus = await VerificationHelpers.preformVerificationChecks(groupID, robloxID, commands[i].commandData.permissionToCheck);
-                } else {
-                    verificationStatus = {success: false, err: `User is not verified with the configured verification provider (${config.verificationProvider})`};
-                }
-                if(!verificationStatus.success) {
-                    let embed = client.embedMaker({title: "Verification Checks Failed", description: `You've failed the verification checks, reason: ${verificationStatus.err}`, type: "error", author: interaction.user});
-                    await interaction.editReply({embeds: [embed]});
-                    return;
-                }
-            }
-            let res;
-            try {
-                res = await commands[i].file.run(interaction, client, args);
-            } catch(e) {
-                let embed = client.embedMaker({title: "Error", description: "There was an error while trying to run this command. The error has been logged in the console", type: "error", author: interaction.user});
-                await interaction.editReply({embeds: [embed]});
-                console.error(e);
-            }
-            if(commands[i] && commands[i].file.commandData.hasCooldown) {
-                let commandCooldown = client.getCooldownForCommand(commands[i].file.slashData.name);
-                if(typeof(res) === "number") { // If we return a number, it means the cooldown multipler got calculated
-                    client.commandCooldowns.push({commandName: commands[i].file.slashData.name, userID: interaction.user.id, cooldownExpires: Date.now() + (commandCooldown * res)});
-                } else if(args["username"]) {
-                    let usernames = args["username"].replaceAll(" ", "").split(",") as string[];
-                    client.commandCooldowns.push({commandName: commands[i].file.slashData.name, userID: interaction.user.id, cooldownExpires: Date.now() + (commandCooldown * usernames.length)});
-                } else {
-                    client.commandCooldowns.push({commandName: commands[i].file.slashData.name, userID: interaction.user.id, cooldownExpires: Date.now() + commandCooldown});
-                }
-            }
+    let commandObject = commands.find(c => c.name === command);
+    if(!commandObject) return;
+    try {
+        await interaction.deferReply({ephemeral: commandObject.commandData.isEphemeral});
+    } catch(e) {
+        console.error(e);
+        return; // This error only happens with the plugin command. Idk why
+    }
+    let args = CommandHelpers.loadArguments(interaction);
+    if(args["username"]) {
+        let usernames = args["username"].replaceAll(" ", "").split(",") as string[];
+        if(usernames.length > config.maximumNumberOfUsers) {
+            let embed = client.embedMaker({title: "Maximum Number of Users Exceeded", description: "You've inputted more users than the currently allowed maximum, please lower the amount of users in your command and try again", type: "error", author: interaction.user});
+            await interaction.editReply({embeds: [embed]});
+            return;
+        }
+    }
+    if(!CommandHelpers.checkPermissions(commandObject.file, interaction.member as Discord.GuildMember)) {
+        let embed = client.embedMaker({title: "No Permission", description: "You don't have permission to run this command", type: "error", author: interaction.user});
+        await interaction.editReply({embeds: [embed]});
+        return;
+    }
+    if(commandObject.file.commandData.hasCooldown) {
+        if(client.isUserOnCooldown(commandObject.file.slashData.name, interaction.user.id)) {
+            let embed = client.embedMaker({title: "Cooldown", description: "You're currently on cooldown for this command, take a chill pill", type: "error", author: interaction.user});
+            await interaction.editReply({embeds: [embed]});
+            return;
+        }
+    }
+    if(commandObject.file.commandData.preformGeneralVerificationChecks) {
+        let groupID = GroupHandler.getIDFromName(args["group"]);
+        let robloxID = await VerificationHelpers.getRobloxUser(interaction.guild.id, interaction.user.id);
+        let verificationStatus: VerificationResult;
+        if(robloxID !== 0) {
+            verificationStatus = await VerificationHelpers.preformVerificationChecks(groupID, robloxID, commandObject.commandData.permissionToCheck);
+        } else {
+            verificationStatus = {success: false, err: `User is not verified with the configured verification provider (${config.verificationProvider})`};
+        }
+        if(!verificationStatus.success) {
+            let embed = client.embedMaker({title: "Verification Checks Failed", description: `You've failed the verification checks, reason: ${verificationStatus.err}`, type: "error", author: interaction.user});
+            await interaction.editReply({embeds: [embed]});
+            return;
+        }
+    }
+    let res;
+    try {
+        res = await commandObject.file.run(interaction, client, args);
+    } catch(e) {
+        let embed = client.embedMaker({title: "Error", description: "There was an error while trying to run this command. The error has been logged in the console", type: "error", author: interaction.user});
+        await interaction.editReply({embeds: [embed]});
+        console.error(e);
+    }
+    if(commandObject && commandObject.file.commandData.hasCooldown) {
+        let commandCooldown = client.getCooldownForCommand(commandObject.file.slashData.name);
+        if(typeof(res) === "number") { // If we return a number, it means the cooldown multipler got calculated
+            client.commandCooldowns.push({commandName: commandObject.file.slashData.name, userID: interaction.user.id, cooldownExpires: Date.now() + (commandCooldown * res)});
+        } else if(args["username"]) {
+            let usernames = args["username"].replaceAll(" ", "").split(",") as string[];
+            client.commandCooldowns.push({commandName: commandObject.file.slashData.name, userID: interaction.user.id, cooldownExpires: Date.now() + (commandCooldown * usernames.length)});
+        } else {
+            client.commandCooldowns.push({commandName: commandObject.file.slashData.name, userID: interaction.user.id, cooldownExpires: Date.now() + commandCooldown});
         }
     }
 });
@@ -223,14 +221,12 @@ client.on('interactionCreate', async(interaction: Discord.Interaction) => {
 client.on("interactionCreate", async(interaction: Discord.Interaction) => {
     if(interaction.type !== Discord.InteractionType.ApplicationCommandAutocomplete) return;
     let command = interaction.commandName.toLowerCase();
-    for(let i = 0; i < commands.length; i++) {
-        if(commands[i].name === command) {
-            try {
-                await commands[i].file.autocomplete(interaction, client);
-            } catch(e) {
-                console.error(e);
-            }
-        }
+    let commandObject = commands.find(c => c.name === command);
+    if(!commandObject) return;
+    try {
+        await commandObject.file.autocomplete(interaction, client);
+    } catch(e) {
+        console.error(e);
     }
 });
 
