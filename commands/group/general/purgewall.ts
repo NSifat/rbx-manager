@@ -115,7 +115,7 @@ const command: CommandFile = {
         return deleteResult.success;
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("purgewall")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Purges the wall by either user, amount, or both")
     .addSubcommand(sc => {
         sc.setName("user");

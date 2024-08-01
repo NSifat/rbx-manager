@@ -67,7 +67,7 @@ const command: CommandFile = {
         await interaction.editReply({embeds: [embed]});
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("suspend")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Suspends the given users with the given amount of time")
     .addStringOption(o => o.setName("group").setDescription("The group to do the suspending in").setRequired(true).addChoices(...GroupHandler.parseGroups() as any))
     .addStringOption(o => o.setName("username").setDescription("The username of the person you wish to suspend").setRequired(true))

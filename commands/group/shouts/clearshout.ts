@@ -22,7 +22,7 @@ const command: CommandFile = {
         await client.logAction(`<@${interaction.user.id}> has cleared the group shout in **${GroupHandler.getNameFromID(groupID)}**`);
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("clearshout")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Clears the group shout")
     .addStringOption(o => o.setName("group").setDescription("The group to clear the shout of").setRequired(true).addChoices(...GroupHandler.parseGroups() as any)) as Discord.SlashCommandBuilder,
     commandData: {

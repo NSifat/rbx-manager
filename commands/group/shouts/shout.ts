@@ -23,7 +23,7 @@ const command: CommandFile = {
         await client.logAction(`<@${interaction.user.id}> has shouted "**${message}**" to the group in **${GroupHandler.getNameFromID(groupID)}**`);
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("shout")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Shouts a message to the group")
     .addStringOption(o => o.setName("group").setDescription("The group to do the shouting in").setRequired(true).addChoices(...GroupHandler.parseGroups() as any))
     .addStringOption(o => o.setName("message").setDescription("The message that you wish to shout to the group").setRequired(true)) as Discord.SlashCommandBuilder,

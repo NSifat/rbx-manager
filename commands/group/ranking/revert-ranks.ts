@@ -121,7 +121,7 @@ const command: CommandFile = {
         return logs.data.length; // This is the only command where the multiplier is calculated, so I return it to multiply it in the main file
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("revert-ranks")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Reverts rank actions based on given settings (user/date parameters are filters, both are accepted)")
     .addStringOption(o => o.setName("group").setDescription("The group to do the rank reverting in").setRequired(true).addChoices(...GroupHandler.parseGroups() as any))
     .addStringOption(o => o.setName("limit").setDescription("The amount of actions to revert").setRequired(true))

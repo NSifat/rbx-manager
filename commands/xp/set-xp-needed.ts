@@ -27,7 +27,7 @@ const command: CommandFile = {
         return await interaction.respond(filteredIDs.map(id => ({name: id, value: id})));
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("set-xp-needed")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Sets the XP needed for a reward")
     .addStringOption(o => o.setName("id").setDescription("The ID of the reward").setRequired(true).setAutocomplete(true))
     .addNumberOption(o => o.setName("xp").setDescription("The new amount of XP that would be needed to redeem this reward").setRequired(true)) as Discord.SlashCommandBuilder,

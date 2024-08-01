@@ -42,7 +42,7 @@ const command: CommandFile = {
         await client.logXPAction("Set Roblox User", `<@${interaction.user.id}> has set their linked Roblox account to **${username}**`);
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("set-roblox")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Sets your Roblox account")
     .addStringOption(o => o.setName("username").setDescription("The username of the account to set").setRequired(true)) as Discord.SlashCommandBuilder,
     commandData: {

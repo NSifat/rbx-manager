@@ -35,7 +35,7 @@ const command: CommandFile = {
         try { await fs.promises.unlink(DATA_FILE_PATH) } catch {}
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("support")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Easily compile configuration values and general info to send for me to help you"),
     commandData: {
         category: "Util",

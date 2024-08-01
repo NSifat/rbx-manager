@@ -119,7 +119,7 @@ const command: CommandFile = {
         return await interaction.respond(availableRewards.map(r => ({name: r, value: r})));
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("redeem")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Redeems a reward given an ID")
     .addStringOption(o => o.setName("id").setDescription("The ID of the reward you want to redeem").setRequired(true).setAutocomplete(true)) as Discord.SlashCommandBuilder,
     commandData: {

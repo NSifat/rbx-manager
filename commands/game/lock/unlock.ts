@@ -28,7 +28,7 @@ const command: CommandFile = {
         await interaction.editReply({embeds: [embed]});
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("unlock")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Unlocks the inputted server")
     .addStringOption(o => o.setName("universe").setDescription("The universe to perform this action on").setRequired(true).addChoices(...UniverseHandler.parseUniverses() as any))
     .addStringOption(o => o.setName("jobid").setDescription("The job ID of the server you wish to unlock").setRequired(true))

@@ -104,7 +104,7 @@ const command: CommandFile = {
         await client.initiateLogEmbedSystem(interaction, logs);
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("groupban")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Bans the supplied user(s) from the group")
     .addStringOption(o => o.setName("group").setDescription("The group to do the banning in").setRequired(true).addChoices(...GroupHandler.parseGroups() as any))
     .addStringOption(o => o.setName("username").setDescription("The username(s) of the user(s) you wish to ban from the group").setRequired(true))

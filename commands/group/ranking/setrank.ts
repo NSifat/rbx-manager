@@ -147,7 +147,7 @@ const command: CommandFile = {
         await client.initiateLogEmbedSystem(interaction, logs);
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("setrank")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Sets the rank of the inputted user(s) to the inputted rank(s)")
     .addStringOption(o => o.setName("group").setDescription("The group to do the ranking in").setRequired(true).addChoices(...GroupHandler.parseGroups() as any))
     .addStringOption(o => o.setName("username").setDescription("The username(s) of the person/people you wish to rank").setRequired(true))

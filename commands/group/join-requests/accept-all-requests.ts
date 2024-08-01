@@ -8,7 +8,7 @@ import GroupHandler from '../../../utils/classes/GroupHandler';
 
 import CommandFile from '../../../utils/interfaces/CommandFile';
 
-async function batchAccept(groupID: number, userIDS: Number[]): Promise<void> {
+async function batchAccept(groupID: number, userIDS: number[]): Promise<void> {
     let res = await BotClient.request({
         url: `https://groups.roblox.com/v1/groups/${groupID}/join-requests`,
         method: "POST",
@@ -24,7 +24,7 @@ async function batchAccept(groupID: number, userIDS: Number[]): Promise<void> {
     }
 }
 
-function parseUsers(users: roblox.GroupJoinRequest[]): Number[] {
+function parseUsers(users: roblox.GroupJoinRequest[]): number[] {
     let userIDs = [];
     for(let i = 0; i < users.length; i++) {
         userIDs.push(users[i].requester.userId);
@@ -65,7 +65,7 @@ const command: CommandFile = {
         await interaction.editReply({content: `<@${interaction.user.id}>`, embeds: [embed]});
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("accept-all-requests")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Accepts all the pending join requests")
     .addStringOption(o => o.setName("group").setDescription("The group to accept all the join requests of").setRequired(true).addChoices(...GroupHandler.parseGroups() as any))
     .addStringOption(o => o.setName("reason").setDescription("The reason for why you are accepting all these requests").setRequired(true)) as Discord.SlashCommandBuilder,

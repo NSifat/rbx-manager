@@ -34,7 +34,7 @@ const command: CommandFile = {
         await interaction.editReply({embeds: [embed]});
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("shutdown")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Shutdowns all servers or shuts down a specific server")
     .addSubcommand(sc => {
         sc.setName("global")

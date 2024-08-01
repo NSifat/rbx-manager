@@ -37,7 +37,7 @@ const command: CommandFile = {
         await interaction.editReply({embeds: [embed]});
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("game-eval")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Runs serverside code")
     .addSubcommand(sc => {
         sc.setName("global")

@@ -147,7 +147,7 @@ const command: CommandFile = {
         await client.initiateLogEmbedSystem(interaction, logs);
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("demote")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Demotes the inputted user(s)")
     .addStringOption(o => o.setName("group").setDescription("The group to do the demoting in").setRequired(true).addChoices(...GroupHandler.parseGroups() as any))
     .addStringOption(o => o.setName("username").setDescription("The username(s) of the user(s) you wish to demote").setRequired(true))

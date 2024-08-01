@@ -119,7 +119,7 @@ const command: CommandFile = {
         return await interaction.editReply({embeds: [embed]});
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("checkuser")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Gets information about the inputted user")
     .addStringOption(o => o.setName("username").setDescription("The username of the user you wish to check").setRequired(true)) as Discord.SlashCommandBuilder,
     commandData: {

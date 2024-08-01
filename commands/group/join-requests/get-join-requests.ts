@@ -61,7 +61,7 @@ const command: CommandFile = {
         });
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("get-join-requests")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Gets the pending join requests of the group")
     .addStringOption(o => o.setName("group").setDescription("The group to get the join requests").setRequired(true).addChoices(...GroupHandler.parseGroups() as any)) as Discord.SlashCommandBuilder,
     commandData: {

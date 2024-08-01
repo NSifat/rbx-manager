@@ -38,7 +38,7 @@ const command: CommandFile = {
         return await interaction.editReply({embeds: [embed]});
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("getvalue")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Gets the datastore value with the inputted settings")
     .addStringOption(o => o.setName("universe").setDescription("The universe to perform this action on").setRequired(true).addChoices(...UniverseHandler.parseUniverses() as any))
     .addStringOption(o => o.setName("name").setDescription("The name of the datastore to fetch data from").setRequired(true))

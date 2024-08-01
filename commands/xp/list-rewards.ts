@@ -48,7 +48,7 @@ const command: CommandFile = {
         return await interaction.editReply({embeds: [embed]});
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("list-rewards")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Lists all the awards that you qualify for which you didn't redeem"),
     commandData: {
         category: "XP",

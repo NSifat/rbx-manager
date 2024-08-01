@@ -55,7 +55,7 @@ const command: CommandFile = {
         return await interaction.respond(filtered.map(choice => ({name: choice, value: choice})));
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("permission")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Configures role permissions for the bot")
     .addSubcommand(sc => {
         sc.setName("add");
