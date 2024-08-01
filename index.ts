@@ -161,6 +161,11 @@ client.on('interactionCreate', async(interaction: Discord.Interaction) => {
         console.error(e);
         return; // This error only happens with the plugin command. Idk why
     }
+    if(!client.isLoggedIn && CommandHelpers.getGroupCommands().includes(commandObject.name)) {
+        let embed = client.embedMaker({title: "Not Logged In", description: "The bot is currently not logged into Roblox, please log it in", type: "error", author: interaction.user});
+        await interaction.editReply({embeds: [embed]});
+        return;
+    }
     let args = CommandHelpers.loadArguments(interaction);
     if(args["username"]) {
         let usernames = args["username"].replaceAll(" ", "").split(",") as string[];
