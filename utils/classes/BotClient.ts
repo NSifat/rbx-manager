@@ -68,22 +68,36 @@ export default class BotClient extends Discord.Client {
 
     public createButtons(buttonData: {customID: string, label: string, style: Discord.ButtonStyle}[]): Discord.MessageReplyOptions {
         let components = [];
+        if(buttonData.length === 2) {
+            let button1 = new Discord.ButtonBuilder().setCustomId(buttonData[0].customID).setLabel(buttonData[0].label).setStyle(buttonData[0].style);
+            let button2 = new Discord.ButtonBuilder().setCustomId(buttonData[1].customID).setLabel(buttonData[1].label).setStyle(buttonData[1].style);
+            components.push(new Discord.ActionRowBuilder().addComponents(button1, button2));
+            return {components: components};
+        }
         for(let i = 0; i < buttonData.length; i++) {
             let newComponent = new Discord.ActionRowBuilder().addComponents(new Discord.ButtonBuilder().setCustomId(buttonData[i].customID).setLabel(buttonData[i].label).setStyle(buttonData[i].style));
             components.push(newComponent);
         }
-        return {components: components}
+        return {components: components};
     }
 
     public disableButtons(componentData: Discord.MessageReplyOptions): Discord.MessageReplyOptions {
         let components = [];
         let oldComponents = componentData.components;
+        if(oldComponents.length === 1) { // This means that the createButtons call to make the buttons had data for 2 buttons
+            let actionRow = (oldComponents[0] as Discord.ActionRowBuilder);
+            for(let i = 0; i < actionRow.components.length; i++) {
+                (actionRow.components[i] as Discord.ButtonBuilder).setDisabled(true);
+            }
+            components.push(actionRow);
+            return {components: components};
+        }
         for(let i = 0; i < oldComponents.length; i++) {
             let actionRow = (oldComponents[i] as Discord.ActionRowBuilder);
             (actionRow.components[0] as Discord.ButtonBuilder).setDisabled(true);
             components.push(actionRow);
         }
-        return {components: components}
+        return {components: components};
     }
 
     public async logAction(logString: string): Promise<void> {
