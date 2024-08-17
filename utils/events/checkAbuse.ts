@@ -10,7 +10,7 @@ export default async function checkAbuse(groupID: number, client: BotClient) {
     if(!client.isLoggedIn) return;
     for(let i = client.groupLogs.length - 1; i >= 0; i--) {
         if(client.groupLogs[i].cooldownExpires >= Date.now()) {
-            client.commandCooldowns.splice(i, 1);
+            client.groupLogs.splice(i, 1);
         } else {
             let rankIndex = client.groupLogs.findIndex(v => v.userID === client.groupLogs[i].userID && client.groupLogs[i].groupID === groupID && v.action === "Rank");
             let exileIndex = client.groupLogs.findIndex(v => v.userID === client.groupLogs[i].userID && client.groupLogs[i].groupID === groupID && v.action === "Exile");
