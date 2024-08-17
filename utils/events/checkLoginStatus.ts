@@ -4,7 +4,7 @@ import BotClient from '../classes/BotClient';
 
 export default async function checkLoginStatus(client: BotClient) {
     try {
-        await roblox.getCurrentUser();
+        await (roblox as any).getAuthenticatedUser() // When the typing gets fixed, remove the any type declaration
         client.isLoggedIn = true;
         client.setStatusActivity();
     } catch(e) {

@@ -73,7 +73,7 @@ const command: CommandFile = {
             let currentRoleIndex = roles.findIndex(role => role.rank === rankID);
             let currentRole = roles[currentRoleIndex];
             let potentialRole = roles[currentRoleIndex + 1];
-            let botRank = await roblox.getRankInGroup(groupID, client.robloxInfo.UserID);
+            let botRank = await roblox.getRankInGroup(groupID, client.robloxInfo.id);
             if(potentialRole.rank >= botRank) {
                 logs.push({
                     username: username,

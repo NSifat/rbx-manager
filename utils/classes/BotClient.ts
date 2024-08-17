@@ -15,7 +15,7 @@ export default class BotClient extends Discord.Client {
     public originalLockedCommands: string[] = [];
     public isLoggedIn: boolean;
     public onLatestVersion: boolean;
-    public robloxInfo: roblox.LoggedInUserData;
+    public robloxInfo: roblox.AuthenticatedUserData;
     public commandCooldowns: CooldownEntry[] = [];
     public groupLogs: GroupLog[] = [];
     public jobIdsRequested: {username: string, universeID: number, msgID: string, channelID: string, timeRequested: number}[] = [];

@@ -23,7 +23,7 @@ export default async function checkAudits(groupID: number, client: BotClient) {
         if(auditIndex === 0 || auditIndex === -1) throw("Skip check");
         for(let i = auditIndex - 1; i >= 0; i--) {
             let log = auditLog.data[i];
-            if(log.actor.user.userId === currentUser.UserID) continue;
+            if(log.actor.user.userId === currentUser.id) continue;
             if(log.actionType === "Post Status" && config.logging.shout.enabled) {
                 let channel = await client.channels.fetch(config.logging.shout.loggingChannel) as Discord.TextChannel;
                 if(channel) {

@@ -114,7 +114,7 @@ export async function loginToRoblox(robloxCookie: string) {
         client.isLoggedIn = false;
         return;
     }
-    BetterConsole.log(`Logged into the Roblox account - ${client.robloxInfo.UserName}`, true);
+    BetterConsole.log(`Logged into the Roblox account - ${client.robloxInfo.name}`, true);
     client.isLoggedIn = true;
     for(let i = 0; i < config.groupIds.length; i++) {
         let groupID = config.groupIds[i];
