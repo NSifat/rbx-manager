@@ -32,7 +32,7 @@ const command: CommandFile = {
             {customID: "previousPage", label: "Previous Page", style: Discord.ButtonStyle.Primary},
             {customID: "nextPage", label: "Next Page", style: Discord.ButtonStyle.Primary}
         ]);
-        let msg = await interaction.editReply({embeds: [embed]}) as Discord.Message;
+        let msg = await interaction.editReply({embeds: [embed], components: componentData.components}) as Discord.Message;
         let filter = (buttonInteraction: Discord.Interaction) => buttonInteraction.isButton() && buttonInteraction.user.id === interaction.user.id;
         let collector = msg.createMessageComponentCollector({filter: filter, time: config.collectorTime});
         collector.on('collect', async(button: Discord.ButtonInteraction) => {
