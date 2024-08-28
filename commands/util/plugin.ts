@@ -113,7 +113,7 @@ const command: CommandFile = {
         await interaction.editReply({embeds: [embed]});
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("plugin")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Manages installed plugins")
     .addSubcommand(sc => {
         sc.setName("install")

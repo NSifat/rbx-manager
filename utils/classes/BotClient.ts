@@ -3,7 +3,6 @@ import roblox from 'noblox.js';
 
 import BetterConsole from './BetterConsole';
 
-import BotConfig from '../interfaces/BotConfig';
 import RequestOptions from '../interfaces/RequestOptions';
 import EmbedMakerOptions from '../interfaces/EmbedMakerOptions';
 import CommandLog from '../interfaces/CommandLog';
@@ -16,15 +15,15 @@ export default class BotClient extends Discord.Client {
     public originalLockedCommands: string[] = [];
     public isLoggedIn: boolean;
     public onLatestVersion: boolean;
-    public robloxInfo: roblox.LoggedInUserData;
+    public robloxInfo: roblox.AuthenticatedUserData;
     public commandCooldowns: CooldownEntry[] = [];
     public groupLogs: GroupLog[] = [];
-    public verificationCache: {discordID: string, robloxID: number, timeAdded: number}[] = [];
     public jobIdsRequested: {username: string, universeID: number, msgID: string, channelID: string, timeRequested: number}[] = [];
 
-    constructor(config: BotConfig) {
+    constructor() {
         super({intents: [Discord.IntentsBitField.Flags.Guilds, Discord.IntentsBitField.Flags.GuildMessages, Discord.IntentsBitField.Flags.GuildMessageReactions, Discord.IntentsBitField.Flags.MessageContent]});
         this.originalLockedCommands = config.lockedCommands;
+        this.login(config.DISCORD_TOKEN);
     }
 
     public static async request(requestOptions: RequestOptions) : Promise<Response> {
@@ -69,22 +68,36 @@ export default class BotClient extends Discord.Client {
 
     public createButtons(buttonData: {customID: string, label: string, style: Discord.ButtonStyle}[]): Discord.MessageReplyOptions {
         let components = [];
+        if(buttonData.length === 2) {
+            let button1 = new Discord.ButtonBuilder().setCustomId(buttonData[0].customID).setLabel(buttonData[0].label).setStyle(buttonData[0].style);
+            let button2 = new Discord.ButtonBuilder().setCustomId(buttonData[1].customID).setLabel(buttonData[1].label).setStyle(buttonData[1].style);
+            components.push(new Discord.ActionRowBuilder().addComponents(button1, button2));
+            return {components: components};
+        }
         for(let i = 0; i < buttonData.length; i++) {
             let newComponent = new Discord.ActionRowBuilder().addComponents(new Discord.ButtonBuilder().setCustomId(buttonData[i].customID).setLabel(buttonData[i].label).setStyle(buttonData[i].style));
             components.push(newComponent);
         }
-        return {components: components}
+        return {components: components};
     }
 
     public disableButtons(componentData: Discord.MessageReplyOptions): Discord.MessageReplyOptions {
         let components = [];
         let oldComponents = componentData.components;
+        if(oldComponents.length === 1) { // This means that the createButtons call to make the buttons had data for 2 buttons
+            let actionRow = (oldComponents[0] as Discord.ActionRowBuilder);
+            for(let i = 0; i < actionRow.components.length; i++) {
+                (actionRow.components[i] as Discord.ButtonBuilder).setDisabled(true);
+            }
+            components.push(actionRow);
+            return {components: components};
+        }
         for(let i = 0; i < oldComponents.length; i++) {
             let actionRow = (oldComponents[i] as Discord.ActionRowBuilder);
             (actionRow.components[0] as Discord.ButtonBuilder).setDisabled(true);
             components.push(actionRow);
         }
-        return {components: components}
+        return {components: components};
     }
 
     public async logAction(logString: string): Promise<void> {
@@ -195,5 +208,25 @@ export default class BotClient extends Discord.Client {
 
     public getCooldownForCommand(commandName: string): number {
         return config.cooldownOverrides[commandName] || config.defaultCooldown;
+    }
+
+    public formatDate(date: Date): string {
+        let hour = date.getHours();
+        let isAM = false;
+        if(hour === 0) {
+            hour = 12;
+            isAM = true;
+        } else if(hour === 12) {
+            isAM = false;
+        } else {
+            if(hour < 12) {
+                isAM = true;
+            } else {
+                hour -= 12;
+            }
+        }
+        let mins = `${date.getMinutes()}`;
+        if(mins.length === 1) mins = `0${mins}`;
+        return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} - ${hour}:${mins} ${isAM ? "AM" : "PM"}`;
     }
 }

@@ -4,6 +4,7 @@ import AntiAbuseAction from './AntiAbuseAction';
 import LoggingConfig from './LoggingConfig';
 import RewardEntry from './RewardEntry';
 import VerificationProvider from './VerificationProvider';
+import GroupBlacklistEntry from './GroupBlacklistEntry';
 
 export default interface BotConfig {
     DISCORD_TOKEN: string,
@@ -19,7 +20,8 @@ export default interface BotConfig {
             joinrequests: string[],
             user: string[],
             xp: string[],
-            wall: string[]
+            wall: string[],
+            blacklist: string[]
         },
         game: {
             general: string[]
@@ -76,7 +78,8 @@ export default interface BotConfig {
         useSamePrivateReasonForDisplay: boolean,
         displayReason: string,
         excludeAlts: boolean
-    }
+    },
+    groupBlacklists: GroupBlacklistEntry[]
     defaultCooldown: number,
     cooldownOverrides: {[key: string]: number},
     suspensionRank: number,

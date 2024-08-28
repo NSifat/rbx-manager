@@ -24,7 +24,8 @@ const config: BotConfig = {
             joinrequests: [""],
             user: [""],
             xp: [""],
-            wall: [""]
+            wall: [""],
+            blacklist: [""]
         },
         game: {
             general: [""],
@@ -100,6 +101,7 @@ const config: BotConfig = {
         displayReason: "You've been banned from this game",
         excludeAlts: false,
     },
+    groupBlacklists: [],
     defaultCooldown: 5000,
     cooldownOverrides: {}, // Format: {"command name": cooldownInMilliSeconds} ; EX: {"exile": 20000}
     suspensionRank: 0,

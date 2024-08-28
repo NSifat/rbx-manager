@@ -54,7 +54,7 @@ const command: CommandFile = {
         await client.initiateLogEmbedSystem(interaction, logs);
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("deny-join-request")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Denies the join request of the user(s) inputted")
     .addStringOption(o => o.setName("group").setDescription("The group to deny join request in").setRequired(true).addChoices(...GroupHandler.parseGroups() as any))
     .addStringOption(o => o.setName("username").setDescription("The username(s) of the user(s) you wish to deny the join request of").setRequired(true))

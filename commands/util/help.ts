@@ -60,7 +60,7 @@ const command: CommandFile = {
         });
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("help")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Gets a list of commands"),
     commandData: {
         category: "Util",

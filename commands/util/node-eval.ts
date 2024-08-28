@@ -52,7 +52,7 @@ const command: CommandFile = {
         console.log = oldMethod;
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("node-eval")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Runs Javascript code in the bot environment")
     .addStringOption(o => o.setName("code").setDescription("The code to run (can also be a URL to the code to run)").setRequired(true)) as Discord.SlashCommandBuilder,
     commandData: {

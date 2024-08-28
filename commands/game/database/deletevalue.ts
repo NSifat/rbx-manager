@@ -32,7 +32,7 @@ const command: CommandFile = {
         await interaction.editReply({embeds: [embed]});
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("deletevalue")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Deletes data from the datastores with the given settings")
     .addStringOption(o => o.setName("universe").setDescription("The universe to perform this action on").setRequired(true).addChoices(...UniverseHandler.parseUniverses() as any))
     .addStringOption(o => o.setName("name").setDescription("The name of the datastore to delete data from").setRequired(true))

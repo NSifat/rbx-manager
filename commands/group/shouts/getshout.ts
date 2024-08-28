@@ -22,7 +22,7 @@ const command: CommandFile = {
         return await interaction.editReply({embeds: [embed]});
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("getshout")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Gets the current group shout")
     .addStringOption(o => o.setName("group").setDescription("The group get the shout of").setRequired(true).addChoices(...GroupHandler.parseGroups() as any)) as Discord.SlashCommandBuilder,
     commandData: {

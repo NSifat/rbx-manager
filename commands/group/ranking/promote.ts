@@ -73,7 +73,7 @@ const command: CommandFile = {
             let currentRoleIndex = roles.findIndex(role => role.rank === rankID);
             let currentRole = roles[currentRoleIndex];
             let potentialRole = roles[currentRoleIndex + 1];
-            let botRank = await roblox.getRankInGroup(groupID, client.robloxInfo.UserID);
+            let botRank = await roblox.getRankInGroup(groupID, client.robloxInfo.id);
             if(potentialRole.rank >= botRank) {
                 logs.push({
                     username: username,
@@ -148,7 +148,7 @@ const command: CommandFile = {
         await client.initiateLogEmbedSystem(interaction, logs);
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("promote")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Promotes the inputted user(s)")
     .addStringOption(o => o.setName("group").setDescription("The group to do the promoting in").setRequired(true).addChoices(...GroupHandler.parseGroups() as any))
     .addStringOption(o => o.setName("username").setDescription("The username(s) of the user(s) you wish to promote").setRequired(true))

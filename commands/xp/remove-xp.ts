@@ -38,7 +38,7 @@ const command: CommandFile = {
         await client.logAction(`<@${interaction.user.id}> has removed **${amount}** XP from <@${discordID}>'s XP balance`);
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("remove-xp")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Removes XP from a user")
     .addUserOption(o => o.setName("user").setDescription("The user to remove XP from").setRequired(true))
     .addNumberOption(o => o.setName("amount").setDescription("The amount of XP to remove").setRequired(true)) as Discord.SlashCommandBuilder,

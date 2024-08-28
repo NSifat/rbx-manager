@@ -83,7 +83,7 @@ const command: CommandFile = {
         await client.initiateLogEmbedSystem(interaction, logs);
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("fire")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Fires the inputted user(s)")
     .addStringOption(o => o.setName("group").setDescription("The group to do the firing in").setRequired(true).addChoices(...GroupHandler.parseGroups() as any))
     .addStringOption(o => o.setName("username").setDescription("The username(s) of the user(s) you wish to fire").setRequired(true))

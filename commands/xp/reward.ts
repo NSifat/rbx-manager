@@ -86,7 +86,7 @@ const command: CommandFile = {
         return await interaction.respond(filteredIDs.map(id => ({name: id, value: id})));
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("reward")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Configures XP rewards")
     .addSubcommand(sc => {
         sc.setName("add-roblox");

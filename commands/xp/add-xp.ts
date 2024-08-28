@@ -38,7 +38,7 @@ const command: CommandFile = {
         await client.logAction(`<@${interaction.user.id}> has added **${amount}** XP to <@${discordID}>'s XP balance`);
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("add-xp")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Adds XP to a user")
     .addUserOption(o => o.setName("user").setDescription("The user to add XP to").setRequired(true))
     .addNumberOption(o => o.setName("amount").setDescription("The amount of XP to add").setRequired(true)) as Discord.SlashCommandBuilder,

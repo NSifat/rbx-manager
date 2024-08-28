@@ -71,7 +71,7 @@ const command: CommandFile = {
         await client.initiateLogEmbedSystem(interaction, logs);
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("ungroupban")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Unbans the user(s) inputted from the group")
     .addStringOption(o => o.setName("group").setDescription("The group to do the unbanning in").setRequired(true).addChoices(...GroupHandler.parseGroups() as any))
     .addStringOption(o => o.setName("username").setDescription("The username(s) of the user(s) you wish to unban from the group").setRequired(true))

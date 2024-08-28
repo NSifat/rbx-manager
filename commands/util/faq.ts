@@ -11,7 +11,7 @@ const command: CommandFile = {
         return await interaction.editReply({embeds: [embed]});
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("faq")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Gets a list of random questions that I think people would ask"),
     commandData: {
         category: "Util",

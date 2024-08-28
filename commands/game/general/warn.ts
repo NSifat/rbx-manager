@@ -66,7 +66,7 @@ const command: CommandFile = {
         }
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("warn")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Manages warnings")
     .addSubcommand(sc => {
         sc.setName("add")

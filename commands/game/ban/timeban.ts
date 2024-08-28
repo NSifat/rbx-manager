@@ -84,7 +84,7 @@ const command: CommandFile = {
         await client.initiateLogEmbedSystem(interaction, logs);
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("timeban")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Bans the inputted user(s) from the game for the given time")
     .addStringOption(o => o.setName("universe").setDescription("The universe to perform this action on").setRequired(true).addChoices(...UniverseHandler.parseUniverses() as any))
     .addStringOption(o => o.setName("username").setDescription("The username(s) of the user(s) you wish to ban").setRequired(true))

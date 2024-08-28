@@ -9,7 +9,7 @@ import config from '../../config';
 
 const oldDates: {id: number, date: Date}[] = [];
 
-async function getSales(client: BotClient, groupID: number): Promise<SalesLog[]> {
+async function getSales(groupID: number): Promise<SalesLog[]> {
     let res = await fetch(`https://economy.roblox.com/v2/groups/${groupID}/transactions?cursor=&limit=100&transactionType=Sale`, {
         headers: {
             "Cookie": `.ROBLOSECURITY=${config.ROBLOX_COOKIE}`
@@ -29,7 +29,7 @@ export default async function checkSales(groupID: number, client: BotClient) {
     if(!client.isLoggedIn) return;
     if(config.logging.sales.enabled === false) return;
     try {
-        let sales = await getSales(client, groupID);
+        let sales = await getSales(groupID);
         if(!sales) throw("Skip check");
         if(!oldDates.find(v => v.id === groupID)) oldDates.push({id: groupID, date: sales[0].created});
         let dateIndex = oldDates.findIndex(v => v.id === groupID);

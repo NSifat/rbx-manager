@@ -32,7 +32,7 @@ const command: CommandFile = {
             {customID: "previousPage", label: "Previous Page", style: Discord.ButtonStyle.Primary},
             {customID: "nextPage", label: "Next Page", style: Discord.ButtonStyle.Primary}
         ]);
-        let msg = await interaction.editReply({embeds: [embed]}) as Discord.Message;
+        let msg = await interaction.editReply({embeds: [embed], components: componentData.components}) as Discord.Message;
         let filter = (buttonInteraction: Discord.Interaction) => buttonInteraction.isButton() && buttonInteraction.user.id === interaction.user.id;
         let collector = msg.createMessageComponentCollector({filter: filter, time: config.collectorTime});
         collector.on('collect', async(button: Discord.ButtonInteraction) => {
@@ -61,7 +61,7 @@ const command: CommandFile = {
         });
     },
     slashData: new Discord.SlashCommandBuilder()
-    .setName("get-join-requests")
+    .setName(require("path").basename(__filename).split(".")[0])
     .setDescription("Gets the pending join requests of the group")
     .addStringOption(o => o.setName("group").setDescription("The group to get the join requests").setRequired(true).addChoices(...GroupHandler.parseGroups() as any)) as Discord.SlashCommandBuilder,
     commandData: {
