@@ -100,39 +100,44 @@ The value, ``embedColors``, is an object setting the colors of different types o
 The value, ``ban``, is an object containing the ban settings used for banning people from games (excluding ban.banDiscordAccounts, this applies to both game and group bans). The configuration options are self-explainatory, so I don't believe I need to mention them here
 
 # Step 6.9
-The value, ``defaultCooldown``, is the default command cooldown in milliseconds. The default is 5000 milliseconds (5 seconds)
+The value, ``groupBlacklists``, is an array containing group blacklist objects. This is internally managed by the bot using the ``/blacklist`` command, however, you may manually add entries if you want
+
+**THIS DOES NOTHING AS OF NOW, THIS WILL FUNCTION AS EXPECTED IN A LATER UPDATE**
 
 # Step 6.10
-The value, ``cooldownOverrides``, are exceptions to the default cooldown set in step 6.8. The takes properties of ``commandName: new_cooldown``. For example, if I wanted to set the cooldown of the exile command to 20 seconds (20000 milliseconds), the value would be `cooldownOverrides: {"exile": 20000}`
+The value, ``defaultCooldown``, is the default command cooldown in milliseconds. The default is 5000 milliseconds (5 seconds)
 
 # Step 6.11
-The value, ``suspensionRank``, is the rank ID of the suspended rank in your group. This is the rank that people get set to when suspended
+The value, ``cooldownOverrides``, are exceptions to the default cooldown set in step 6.8. The takes properties of ``commandName: new_cooldown``. For example, if I wanted to set the cooldown of the exile command to 20 seconds (20000 milliseconds), the value would be `cooldownOverrides: {"exile": 20000}`
 
 # Step 6.12
+The value, ``suspensionRank``, is the rank ID of the suspended rank in your group. This is the rank that people get set to when suspended
+
+# Step 6.13
 The value, ``universes``, is an array value representing the universes that you want to link. This is an array of universe IDs
 To get a universe ID, go to [your creations page](https://create.roblox.com/creations), click the "..." on the games you want to configure, and click "Copy Universe ID" and set it in the config
 
-# Step 6.13
+# Step 6.14
 The value, ``datastoreName``, is the name of the datastore to use. You don't need to configure this
 
 **If you change this value, you MUST change it's value in the Roblox files in step 9**
 
-# Step 6.14
+# Step 6.15
 The value, ``verificationChecks``, is the toggle for verification checks on the group commands. This by default is enabled, but if you want to disable it, set this to false
 
-# Step 6.15
+# Step 6.16
 The value, ``collectorTime``, is how long collectors wait before being terminated in milliseconds. The default is 2 minutes, but you can change this if you want
 
-# Step 6.16
+# Step 6.17
 The value, ``maximumNumberOfUsers``, indicates how many users you can execute a bulk action on. The default is 5, but you can change this if you want
 
-# Step 6.17
+# Step 6.18
 The value, ``lockedRanks``, "locks" the ranks inputted, meaning that you can't promote/demote/setrank to those ranks. This accepts rank names and ids
 
-# Step 6.18
+# Step 6.19
 The value, ``lockedCommands``, locks commands, meaning that no one can use them. Simply type a command name and it will lock it. Casing does not matter
 
-# Step 6.19
+# Step 6.20
 The value, ``verificationProvider``, defines what verification provider the bot will use. Valid values are ``bloxlink``, ``rover``, and ``rowifi``
 
 # Step 7
@@ -148,7 +153,7 @@ Copy [the following code](https://raw.githubusercontent.com/sv-du/rbx-manager/ma
 
 You will see a configuration section. Before pasting this code into the console of the game you want to install this system to, configure it
 
-**Unless you configured the datastoreName value in Step 6.13, which would then need to be reflected in the DATASTORE_NAME value, no configuration is needed**
+**Unless you configured the datastoreName value, which would then need to be reflected in the DATASTORE_NAME value, no configuration is needed**
 
 You are now done with setting up this system! Was that hard?
 
