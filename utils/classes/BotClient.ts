@@ -209,4 +209,24 @@ export default class BotClient extends Discord.Client {
     public getCooldownForCommand(commandName: string): number {
         return config.cooldownOverrides[commandName] || config.defaultCooldown;
     }
+
+    public formatDate(date: Date): string {
+        let hour = date.getHours();
+        let isAM = false;
+        if(hour === 0) {
+            hour = 12;
+            isAM = true;
+        } else if(hour === 12) {
+            isAM = false;
+        } else {
+            if(hour < 12) {
+                isAM = true;
+            } else {
+                hour -= 12;
+            }
+        }
+        let mins = `${date.getMinutes()}`;
+        if(mins.length === 1) mins = `0${mins}`;
+        return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} - ${hour}:${mins} ${isAM ? "AM" : "PM"}`;
+    }
 }

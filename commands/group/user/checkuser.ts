@@ -15,26 +15,6 @@ import CommandFile from '../../../utils/interfaces/CommandFile';
 import GroupBanEntry from '../../../utils/interfaces/GroupBanEntry';
 import SuspensionEntry from '../../../utils/interfaces/SuspensionEntry';
 
-function formatWarnDate(date: Date): string {
-    let hour = date.getHours();
-    let isAM = false;
-    if(hour === 0) {
-        hour = 12;
-        isAM = true;
-    } else if(hour === 12) {
-        isAM = false;
-    } else {
-        if(hour < 12) {
-            isAM = true;
-        } else {
-            hour -= 12;
-        }
-    }
-    let mins = `${date.getMinutes()}`;
-    if(mins.length === 1) mins = `0${mins}`;
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} - ${hour}:${mins} ${isAM ? "AM" : "PM"}`;
-}
-
 const command: CommandFile = {
     run: async(interaction: Discord.CommandInteraction<Discord.CacheType>, client: BotClient, args: any): Promise<any> => {
         let username = args["username"];
@@ -62,7 +42,7 @@ const command: CommandFile = {
                 } else {
                     if(moderationData.warns.length === 1) warnsString = "There was 1 warning found for this user\n\n";
                     for(let i = 0; i < moderationData.warns.length; i++) {
-                        warnsString += `Author: ${moderationData.warns[i].author} | Reason: ${moderationData.warns[i].reason} | Date Assigned: ${formatWarnDate(new Date(moderationData.warns[i].dateAssigned))}\n`;
+                        warnsString += `Author: ${moderationData.warns[i].author} | Reason: ${moderationData.warns[i].reason} | Date Assigned: ${client.formatDate(new Date(moderationData.warns[i].dateAssigned))}\n`;
                     }
                     warnsString = warnsString.replace("len", moderationData.warns.length.toString());
                 }
