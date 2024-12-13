@@ -48,7 +48,7 @@ Once you found the ``.ROBLOSECURITY`` cookie, copy it and paste it after the equ
 # Step 5.3
 The value, ``ROBLOX_API_KEY``, is your API key for the Open Cloud endpoints. To get it, go to [your API keys](https://create.roblox.com/credentials) and click "Create API Key". Once you do so, name it whatever you want and give it the Datastore, Messaging Service, and User Restriction API systems and add your desired experience to it.
 
-For the scopes, give Datastore [these scopes](https://i.imgur.com/5w8Qw2I.png), Messaging Service the Publish scope, and User Restriction the Read and Write scopes.
+For the scopes, give Datastore [these scopes](https://imgur.com/a/7X5gTFt), Messaging Service the `universe-messaging-service:publish` scope, and User Restriction the ``universe.user-restriction:read`` and ``universe.user-restriction:write`` scopes.
 
 Once done, go to section 3: Security, and input the IP address of the machine you want to host the bot on.
 
@@ -80,7 +80,7 @@ The value, ``antiAbuse``, is an object with the anti-abuse configuration
 The value, ``xpSystem``, is an object with the XP system configuration
 
 ``xpSystem.enabled`` -> Determines whether the system is enabled or not
-``xpSystem.rewards`` -> The rewards for getting a certain XP amount. The format for these rewards is in the config
+``xpSystem.rewards`` -> The rewards for getting a certain XP amount. The format for these rewards is in the config. These can be added using the ``/reward`` command (does not support ``Custom`` rewards)
 ``xpSystem.earnings`` -> The rate on which XP is given (by default, 2 XP is given for messages, 1 XP is given for reactions)
 
 # Step 6.5
@@ -94,7 +94,7 @@ The value, ``counting``, is an object with the group counting configuration
 The value, ``logging``, is an object with logging properties. To enable/disable it, toggle the enable values, and to set the logging channel, set it to a channel ID
 
 # Step 6.7
-The value, ``embedColors``, is an object setting the colors of different types of embeds. You don't need to change these values, but if you want to, [here are the valid options](https://discord.js.org/#/docs/discord.js/main/typedef/ColorResolvable)
+The value, ``embedColors``, is an object setting the colors of different types of embeds. You don't need to change these values, but if you want to, [here are the valid options](https://discord.js.org/docs/packages/discord.js/14.16.3/ColorResolvable:TypeAlias)
 
 # Step 6.8
 The value, ``ban``, is an object containing the ban settings used for banning people from games (excluding ban.banDiscordAccounts, this applies to both game and group bans). The configuration options are self-explainatory, so I don't believe I need to mention them here
